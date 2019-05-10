@@ -25,13 +25,13 @@ fi
 privip=`echo $(hostname -I)`
 
 # set cassandra.yaml properties
-/home/ddac/ddac-aws-install/dse-vm-cassandra-props.sh $seeds $cluster_name $privip &
+/home/ddac/dse-vm-cassandra-props.sh $seeds $cluster_name $privip &
 cprops_process_id=$!
 wait $cprops_process_id
 echo cassprops exited with status $?
 
 # set cassandra-rackdc.yaml properties
-/home/ddac/ddac-aws-install/dse-vm-rack-props.sh $dc &
+/home/ddac/dse-vm-rack-props.sh $dc &
 rack_process_id=$!
 wait $rack_process_id
 echo rackprops exited with status $?
@@ -42,7 +42,7 @@ sed -e 's|PATH="\(.*\)"|PATH="/usr/share/dse/bin:/usr/share/dse/tools/bin:\1"|g'
 #
 
 # start DDAC on node
-cp /home/ddac/ddac-aws-install/cassandra.service /etc/systemd/system
+cp /home/ddac/cassandra.service /etc/systemd/system
 
 systemctl enable cassandra &
 casseenable_process_id=$!
